@@ -11,7 +11,7 @@
     </section>
 
     <section class="content">
-        @if(auth()->user()->hasRole('admin'))
+        @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('super_admin'))
 <div class="box box-primary">
     <div class="box-header with-border">
         <h3>@lang('site.Logs')</h3>

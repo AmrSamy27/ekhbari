@@ -10,6 +10,7 @@ return [
 "EditImages"       =>"تعديل صور الخبر",
 "AddImages"        =>"اضافة صور",
 "TheEditor"        =>"المحرر",
+"Super Admin"      =>'مشرف عام',
 "Writers"          => "الكتاب",
 "TheWriter"        => "الكاتب",
 "Writer"           =>"كاتب",

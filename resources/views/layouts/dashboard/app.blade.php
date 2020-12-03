@@ -69,7 +69,7 @@
                   <img src="{{asset(Auth::user()->profile_photo_path)}}" class="user-image" alt="{{asset('dist/img/user2-160x160.jpg')}}">
                   <span class="hidden-xs">{{Auth::user()->first_name . ' ' . Auth::user()->last_name}}</span>
                   @else
-                  <img src="{{asset('storage/images/defaultProfileImage.png')}}" class="user-image" alt="Profile Photo">
+                  <img src="{{asset('images/defaultProfileImage.png')}}" class="user-image" alt="Profile Photo">
                   <span class="hidden-xs">Guest User</span>
                   @endauth
                 </a>
@@ -83,7 +83,7 @@
                     <!-- <small>Member since Nov. 2012</small> -->
                     </p>
                     @else
-                    <img src="{{asset('storage/images/defaultProfileImage.png')}}" class="user-image" alt="{{asset('dist/img/user2-160x160.jpg')}}">
+                    <img src="{{asset('images/defaultProfileImage.png')}}" class="user-image" alt="{{asset('dist/img/user2-160x160.jpg')}}">
                     <p>
                       Guest User
                     <!-- <small>Member since Nov. 2012</small> -->
@@ -136,7 +136,7 @@
           @else
           <div class="user-panel" >
             <div class="pull-right image">
-            <img src="{{asset('storage/images/defaultProfileImage.png')}}" class="user-image" alt="{{asset('dist/img/user2-160x160.jpg')}}">
+            <img src="{{asset('images/defaultProfileImage.png')}}" class="user-image" alt="{{asset('dist/img/user2-160x160.jpg')}}">
             </div>
             <div class="pull-left info">
               <p>Guest User</p>

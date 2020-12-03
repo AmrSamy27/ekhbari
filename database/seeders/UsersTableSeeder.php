@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
             'first_name' => 'amr',
             'last_name'  => 'samy',
             'email'      => 'amrsamy@gmail.com',
-            'profile_photo_path'=>'storage/images/defaultProfileImage.png',
+            'profile_photo_path'=>'images/defaultProfileImage.png',
             'password'   => bcrypt('12344321')
         ]);
         $user->attachRole('super_admin');
