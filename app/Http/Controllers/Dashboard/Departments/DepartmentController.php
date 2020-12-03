@@ -46,7 +46,7 @@ class DepartmentController extends Controller
             $department->users()->attach($user);
         }  
         $this->user_object->registerLog("create-department");
-        return redirect()->route('dashboard.departments.index');         
+        return redirect()->route('departments.index');         
     }
     public function edit($id)
     {

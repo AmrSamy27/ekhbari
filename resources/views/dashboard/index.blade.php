@@ -31,45 +31,46 @@
                         </thead>
                         <tbody>
                             @if($logs != null )
-                            @foreach($logs as $index => $log)
-                            @if($log->user->roles[0]->name == 'super_admin')
-                            @if(auth()->user()->hasRole('super_admin'))
-                            <tr>
-                                <th scope="row">{{$index+1}}</th>
-                                <td>{{$log->user->email}}</td>
-                                <td>
-                                    @foreach($log->user->roles as $role)
-                                        @if(Lang::has('site.' . $role->display_name))
-                                            @lang('site.' . $role->display_name)
-                                        @else
-                                            {{$role->name}}
-                                        @endif,
-                                    @endforeach
-                                </td>
-                                <td>{{$log->description}}</td>
-                                <td>{{$log->created_at}}</td>
-                               
-                            </tr>
-                            @endif
-                            <tr>
-                                <th scope="row">{{$index+1}}</th>
-                                <td>{{$log->user->email}}</td>
-                                <td>
-                                    @foreach($log->user->roles as $role)
-                                        @if(Lang::has('site.' . $role->display_name))
-                                            @lang('site.' . $role->display_name)
-                                        @else
-                                            {{$role->name}}
-                                        @endif,
-                                    @endforeach
-                                </td>
-                                <td>{{$log->description}}</td>
-                                <td>{{$log->created_at}}</td>
-                               
-                            </tr>
-                            @else
-                            @endif
-                            @endforeach
+                                @foreach($logs as $index => $log)
+                                    @if($log->user->roles[0]->name == 'super_admin')
+                                        @if(auth()->user()->hasRole('super_admin'))
+                                        <tr>
+                                            <th scope="row">{{$index+1}}</th>
+                                            <td>{{$log->user->email}}</td>
+                                            <td>
+                                                @foreach($log->user->roles as $role)
+                                                    @if(Lang::has('site.' . $role->display_name))
+                                                        @lang('site.' . $role->display_name)
+                                                    @else
+                                                        {{$role->name}}
+                                                    @endif,
+                                                @endforeach
+                                            </td>
+                                            <td>{{$log->description}}</td>
+                                            <td>{{$log->created_at}}</td>
+                                           
+                                        </tr>
+                                        @endif
+                                   
+                                    @else
+                                    <tr>
+                                        <th scope="row">{{$index+1}}</th>
+                                        <td>{{$log->user->email}}</td>
+                                        <td>
+                                            @foreach($log->user->roles as $role)
+                                                @if(Lang::has('site.' . $role->display_name))
+                                                    @lang('site.' . $role->display_name)
+                                                @else
+                                                    {{$role->name}}
+                                                @endif,
+                                            @endforeach
+                                        </td>
+                                        <td>{{$log->description}}</td>
+                                        <td>{{$log->created_at}}</td>
+
+                                    </tr>
+                                    @endif
+                                @endforeach
                             <tr><td>{{$logs->links()}}</td></tr>
                             @endif
 

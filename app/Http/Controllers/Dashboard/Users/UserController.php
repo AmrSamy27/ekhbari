@@ -56,7 +56,12 @@ class UserController extends Controller
         $user = $this->user_object->userChanges($request,"create");
         $user->attachRole($request->role); 
         $this->user_object->registerLog('create-user');
-        return redirect()->route('dashboard.users.index');
+        $authorized_user =User::find(Auth::id()); 
+        if($authorized_user->hasRole("admin") || $authorized_user->hasRole("super_admin") ){
+            return redirect()->route('dashboard.users.index',"all");
+        }else if($authorized_user->hasRole("editor")){
+            return redirect()->route("dashboard.index","writers");
+        }
     }
 
     public function update(UserUpdateRequest $request)
@@ -67,10 +72,10 @@ class UserController extends Controller
             $user->attachRole($request->role);
         }
         $this->user_object->registerLog('update-user');
-        $userRole = User::find(Auth::id());
-        if($userRole->hasRole("admin") || $userRole->hasRole("super_admin") ){
+        $authorized_user = User::find(Auth::id());
+        if($authorized_user->hasRole("admin") || $authorized_user->hasRole("super_admin") ){
             return redirect()->route('dashboard.users.index',"all");
-        }else if($userRole->hasRole("editor")){
+        }else if($authorized_user->hasRole("editor")){
             return redirect()->route("dashboard.index","writers");
         }
     }

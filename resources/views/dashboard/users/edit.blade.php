@@ -54,6 +54,7 @@
                         <option value="NULL" selected>لا يوجد</option>
 
                         @foreach($roles as $role)
+                        @if($role->name != "super_admin")
                             @if(!auth()->user()->hasPermission('users-create'))
                                 @if($role->name == 'writer')
                                     @if($role->name == $user->roles[0]->name)
@@ -75,6 +76,7 @@
                                  <option value="{{$role->name}}">@lang('site.' . $role->display_name)</option>
                                 @endif    
                             @endif
+                        @endif
                         @endforeach
                         
                     @endif

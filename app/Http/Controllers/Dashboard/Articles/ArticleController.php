@@ -25,7 +25,7 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::paginate(5);
-        return view('dashboard.articles.index',compact('articles'));
+        return view('dashboard.articles.index',['articles'=>$articles,'dashboard'=>false]);
     }
 
     public function create()
@@ -72,7 +72,7 @@ class ArticleController extends Controller
         $department = Department::find($id);
         if($department != null){
             $articles = $department->articles()->paginate(5);
-            return view('dashboard.articles.index',['articles'=>$articles]);
+            return view('dashboard.articles.index',['articles'=>$articles,'dashboard'=>false]);
         }
         return back();
     }

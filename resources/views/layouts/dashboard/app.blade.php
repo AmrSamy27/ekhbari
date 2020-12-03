@@ -147,7 +147,7 @@
           <ul class="sidebar-menu">
             <li class="header"></li>
         @auth
-            @if(auth()->user()->hasPermission('users-read'))
+            @if(auth()->user()->hasPermission('writers-read'))
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-files-o"></i>
@@ -155,14 +155,18 @@
                 <span class="label label-primary pull-left">۴</span>
               </a>
               <ul class="treeview-menu">
+            @if(auth()->user()->hasPermission('users-read'))
               @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('super_admin'))
                 <li><a href="{{route('dashboard.users.index','all')}}"><i class="fa fa-circle-o"></i> @lang('site.allUsers')</a></li>
+                @if(auth()->user()->hasRole('super_admin'))
+                <li><a href="{{route('dashboard.users.index','admins')}}"><i class="fa fa-circle-o"></i> @lang('site.Admins')</a></li>
+                @endif
                 <li><a href="{{route('dashboard.users.index','editors')}}"><i class="fa fa-circle-o"></i> @lang('site.Editors')</a></li>
                 <li><a href="{{route('dashboard.users.index','users')}}"><i class="fa fa-circle-o"></i> @lang('site.TheUsers')</a></li>
               @endif
-              @if(auth()->user()->hasPermission('writers-read'))
-                <li><a href="{{route('dashboard.users.index','writers')}}"><i class="fa fa-circle-o"></i> @lang('site.Writers')</a></li>
               @endif
+                <li><a href="{{route('dashboard.users.index','writers')}}"><i class="fa fa-circle-o"></i> @lang('site.Writers')</a></li>
+              
               </ul>
             </li>
             @endif 
@@ -183,7 +187,7 @@
               </a>
             </li>
           </ul>
-          <div class="fb-page" data-href="https://www.facebook.com/facebook" data-tabs="timeline,events,messages" data-width="" data-height="300px" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote></div>
+          <div class="fb-page user-panel" data-href="https://www.facebook.com/facebook" data-tabs="timeline,events,messages" data-width="" data-height="350px" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote></div>
         </section>
         <!-- /.sidebar -->
       </aside>

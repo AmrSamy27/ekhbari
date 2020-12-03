@@ -25,18 +25,18 @@ class ProfileController extends Controller
             return view('dashboard.users.profile',['user'=>$user]);
            }
        }
-       return redirect()->route('dashboard.articles.index');
+       return redirect()->route('articles.index');
     }
     public function update(UserProfileUpdateRequest $request)
     {
-        if(count((array)$request->password) < 8 || $request->password != $request->password_confirmation){
+        if(count((array)$request->password) < 8 && $request->password != null){
             return back();
         }
-        $user = $this->user_object->updateUser($request);
+        $user = $this->user_object->userChanges($request,"update");
         
         if($user != null)   
         $this->user_object->registerLog('update-user-profile');
         
-        return redirect()->route('dashboard.articles.index');
+        return redirect()->route('articles.index');
     }
 }

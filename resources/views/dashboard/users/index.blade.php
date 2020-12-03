@@ -6,8 +6,13 @@
         @if($role == "users")
         <small>@lang('site.TheUsers')</small>
         @elseif($role == "writers")
-        <small>@lang('site.TheWriters')</small>
+        <small>@lang('site.Writers')</small>
+        @elseif($role == 'editors')
+        <small>@lang('site.TheEditors')</small>
+        @elseif($role == "all")
+        <small>@lang('site.allUsers')</small>
         @else
+        <small>@lang('site.Admins')</small>
         @endif
     </h1>
 <h2>
@@ -50,22 +55,71 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if(!$users->isEmpty())
-                             @foreach($users as $index => $user) 
-                              @if(auth()->user()->hasRole('admin') || (auth()->user()->hasRole('editor') && !$user->hasRole('user') && !$user->hasRole('admin')) )
-                                  <tr>
+                          @if($users != null)
+                            @foreach($users as $index => $user) 
+                              @if(auth()->user()->hasRole('admin') || (auth()->user()->hasRole('editor') && !$user->hasRole('user') && !$user->hasRole('admin') &&!$user->hasRole('super_admin')) || auth()->user()->hasRole('super_admin'))
+                                @if(auth()->user()->hasRole('super_admin'))
+                                    <tr>
+                                        <th scope="row">{{$index+1}}</th>
+                                        <td>{{$user->first_name}}</td>
+                                        <td>{{$user->last_name}}</td>
+                                        <td>{{$user->email}}</td>
+                                      
+                                        <td>@foreach($user->roles as $role) {{Lang::get('site.' . $role->display_name)}} @endforeach</td>
+                                        @if($user->status == 1)
+                                        <td><i class="fa fa-circle text-success"></i>@lang('site.Online')</td>
+                                        @else
+                                        <td><i class="fa fa-circle text-danger"></i>@lang('site.Offline')</td>
+                                        @endif
+                                        @if(!$user->hasRole('super_admin'))
+                                        <td><a style="font-size:15px;" href="{{route('dashboard.users.edit',$user->id)}}" class="btn btn-info btn-sm">@lang('site.Edit')</a></td>
+                                        <td>
+                                          <form action="{{route('dashboard.users.destroy',$user->id)}}" method="post">
+                                            @csrf
+                                            {{method_field('delete')}}
+                                            <button type="submit" class="btn btn-danger btn-sm" style="font-size:15px;" >@lang('site.Delete')</button>
+                                          </form>
+                                        </td>
+                                        @endif
+                                     </tr>
+                                @else
+                                  @if(auth()->user()->hasRole('admin'))
+                                    @if(!$user->hasRole('super_admin') && !$user->hasRole('admin'))  
+                                      <tr>
                                       <th scope="row">{{$index+1}}</th>
                                       <td>{{$user->first_name}}</td>
                                       <td>{{$user->last_name}}</td>
                                       <td>{{$user->email}}</td>
-                                      
                                       <td>@foreach($user->roles as $role) {{Lang::get('site.' . $role->display_name)}} @endforeach</td>
                                       @if($user->status == 1)
                                       <td><i class="fa fa-circle text-success"></i>@lang('site.Online')</td>
                                       @else
                                       <td><i class="fa fa-circle text-danger"></i>@lang('site.Offline')</td>
                                       @endif
-                                      @if(auth()->user()->hasRole('admin') || $user->created_by == auth()->user()->id)
+                                      <td><a style="font-size:15px;" href="{{route('dashboard.users.edit',$user->id)}}" class="btn btn-info btn-sm">@lang('site.Edit')</a></td>
+                                      <td>
+                                        <form action="{{route('dashboard.users.destroy',$user->id)}}" method="post">
+                                          @csrf
+                                          {{method_field('delete')}}
+                                          <button type="submit" class="btn btn-danger btn-sm" style="font-size:15px;" >@lang('site.Delete')</button>
+                                        </form>
+                                      </td>
+                                      </tr>
+                                    @endif
+                                  @else
+                                   @if($user->hasRole('writer'))
+                                   <tr>
+                                      <th scope="row">{{$index+1}}</th>
+                                      <td>{{$user->first_name}}</td>
+                                      <td>{{$user->last_name}}</td>
+                                      <td>{{$user->email}}</td>
+                                      <td>@foreach($user->roles as $role) {{Lang::get('site.' . $role->display_name)}} @endforeach</td>
+                                      @if($user->status == 1)
+                                      <td><i class="fa fa-circle text-success"></i>@lang('site.Online')</td>
+                                      @else
+                                      <td><i class="fa fa-circle text-danger"></i>@lang('site.Offline')</td>
+                                      @endif
+                                      @if(auth()->user()->id == $user->created_by)
                                       <td><a style="font-size:15px;" href="{{route('dashboard.users.edit',$user->id)}}" class="btn btn-info btn-sm">@lang('site.Edit')</a></td>
                                       <td>
                                         <form action="{{route('dashboard.users.destroy',$user->id)}}" method="post">
@@ -75,10 +129,13 @@
                                         </form>
                                       </td>
                                       @endif
-                                  </tr>
+                                    </tr>
+                                   @endif
                                   @endif
-                              @endforeach
-                            @endif
+                                @endif
+                              @endif
+                            @endforeach
+                          @endif
                         </tbody>
                     </table>
                 </div>

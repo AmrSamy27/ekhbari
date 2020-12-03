@@ -4,11 +4,19 @@
 <div style="margin-right:20px;margin-left:20px;font-size:25px">
     <section class="content-header">
         <h1>
+            @if($dashboard == true)
+            @lang('site.YourArticles')
+            @else
             @lang('site.Articles')
+            @endif
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{route('dashboard.index')}}"><i class="fa fa-dashboard"></i>@lang('site.dashboard')</a></li>
+            @if($dashboard == true)
+            <li class="active">@lang('site.YourArticles')</li>
+            @else
             <li class="active">@lang('site.Articles')</li>
+            @endif
         </ol>
     </section>
 

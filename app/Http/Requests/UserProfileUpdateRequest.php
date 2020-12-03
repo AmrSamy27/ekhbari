@@ -27,6 +27,8 @@ class UserProfileUpdateRequest extends FormRequest
             'first_name'=>'required|string|max:255',
             'last_name'=>'required|string|max:255',
             'email'=>'required|email|max:255|unique:users,email,' . $this->id,
+            'password'=>'nullable|password|confirmed',
+
         ];
     }
 }

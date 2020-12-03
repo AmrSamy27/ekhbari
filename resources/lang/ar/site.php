@@ -5,6 +5,8 @@ return [
 "dashboard"        => "لوحة التحكم",
 "Editors"          => "المحررين",
 "Editor"           => "محرر",
+"Admins"           =>"المشرفين",
+"YourArticles"     =>'اخبار بواسطتك',
 "Edit"             => "تعديل",
 "Profile"          => "الملف الشخصى",
 "EditImages"       =>"تعديل صور الخبر",

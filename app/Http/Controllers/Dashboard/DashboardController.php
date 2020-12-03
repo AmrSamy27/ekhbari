@@ -18,10 +18,10 @@ class DashboardController extends Controller
             return view('dashboard.index',compact('logs'));
         }else if($user->hasRole('writer')){
             $articles = $user->articlesWriters()->paginate(5);
-            return view('dashboard.articles.index',['articles' => $articles]);
+            return view('dashboard.articles.index',['articles' => $articles,'dashboard'=>true]);
         }else if($user->hasRole('Editor')){
             $articles = $user->articlesEditors()->paginate(5);
-            return view('dashboard.articles.index',['articles' => $articles]);
+            return view('dashboard.articles.index',['articles' => $articles,'dashboard'=>true]);
         }else{
             return redirect()->route('articles.index');
         }

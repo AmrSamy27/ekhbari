@@ -23,7 +23,7 @@
         <h2 class="box-title" ></h2>
     </div> -->
         <div class="box-body">
-            <form style="font-size:15px;" enctype="multipart/form-data" method="post"
+            <form style="font-size:15px;" onsubmit="checkImagesStatus(event);" enctype="multipart/form-data" method="post"
                 action="{{route('dashboard.articles.update')}}">
                 @csrf
                 @method("PATCH")
@@ -42,7 +42,7 @@
                         <label class="custom-file-label" for="images">@lang('site.AddImages')</label>
                         <br>
                         <div class="custom-file" style="display: inline-block;">
-                            <input type="file" class="custom-file-input" name="images[]" multiple>
+                            <input type="file" class="custom-file-input" name="images[]" id="images" multiple>
                         </div>
                     </div>
                     @if ($errors->has('images')) <p style="color:red;">{{ $errors->first('images') }}</p> @endif
@@ -54,6 +54,7 @@
                         <br>
                         <button class="btn btn-primary" type="button" data-toggle="modal"
                             data-target="#fullHeightModalRight">EditImages</button>
+                            <p style="color:red;" id="editImagesError"></p>
                     </div>
                     <br>
                     <!-- ------------------------------------------------------------------------------------ -->
@@ -130,8 +131,22 @@
 
 <!-- -----------------Script---------------- -->
 <script>
+let error_msg = document.getElementById('editImagesError');
+let checkImage = true;
     function remove(id, element) {
-        url = document.getElementById("url" + id).value;
+        let images_element = document.getElementById('images');
+        let images = element.parentElement.parentElement.parentElement.children;
+
+        if(images.length < 2 && images_element.value == ''){
+            error_msg.innerHTML = "You have to choose at least one image !!!"
+            checkImage = false;
+        }else if((images.length > 1 || images_element.value != '')){
+            checkImage =true;
+            error_msg.innerHTML = '';
+        }
+        
+        if(checkImage){
+            url = document.getElementById("url" + id).value;
         $.ajax({
             url: url,
             type: 'DELETE',
@@ -144,7 +159,18 @@
                 }
             }
         });
+        }   
     }
+     function checkImagesStatus(e){
+        let images_element = document.getElementById('images');
+        let images = element.parentElement.parentElement.parentElement.children;
+
+            if((images.length < 1 || images_element.value == '') ){
+                e.preventDefault();
+                error_msg.innerHTML = '';
+                return false;
+            }
+        }
 
 </script>
 <!-- --------------End Script------------------- -->
