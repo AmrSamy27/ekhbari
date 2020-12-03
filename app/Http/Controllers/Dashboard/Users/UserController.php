@@ -28,10 +28,12 @@ class UserController extends Controller
             $users = User::whereRoleIs('editor')->get();
         }else if($role == "writers"){
             $users = User::whereRoleIs('writer')->get();
-        }else{
+        }else if($role == 'users'){
             $users = User::whereRoleIs('user')->get();
+        }else{
+            $users = User::whereRoleIs('admin')->get();
         }
-        return view('dashboard.users.index',compact('users'));
+        return view('dashboard.users.index',['users' => $users,'role'=>$role]);
 
     }
 

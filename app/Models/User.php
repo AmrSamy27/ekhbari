@@ -102,6 +102,7 @@ public function articlesEditors()
         }else if($status == "create"){
             $user = new User();
         }
+
         $image = $request->file('image');
         if($status == "update" && $image != null){
             $photo_path = $image_object->userImageStore($image);
@@ -116,6 +117,7 @@ public function articlesEditors()
             $user->password = bcrypt($request->password);
         }
         if($status =="create"){
+            $photo_path = $image_object->userImageStore($image);
             $user->email_verified_at = $current_time;
             $user->created_by = Auth::id();
             $user->status = 0;

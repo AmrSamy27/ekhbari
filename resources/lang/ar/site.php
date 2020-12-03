@@ -51,6 +51,7 @@ return [
 "Date"             =>"الوقت",
 'ResetPassword'    =>"نسيت كلمة المرور",
 "Send"             =>"ارسال",
+"Super Admin"      =>"مشرف عام",
 "AssignEditor"     =>"الحاق محرر",
 "AddEditor"        =>"اضافة محرر",
 "ArticleTitle"     =>"عنوان الخبر",
