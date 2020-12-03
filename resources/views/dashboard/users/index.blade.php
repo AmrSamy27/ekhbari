@@ -3,7 +3,12 @@
 <section class="content-header">
     <h1>
         @lang('site.Users')
-        <small>all users</small>
+        @if($role == "users")
+        <small>@lang('site.TheUsers')</small>
+        @elseif($role == "writers")
+        <small>@lang('site.TheWriters')</small>
+        @else
+        @endif
     </h1>
 <h2>
 </h2>
